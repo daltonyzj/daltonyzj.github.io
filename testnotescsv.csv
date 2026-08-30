@@ -1,0 +1,141 @@
+File Name,Year,Grade,Subject,Type
+/pdfs\mathforallEM.pdf,2023,O Lvl,E Math,Notes
+/pdfs\amathforallAM.pdf,2023,O Lvl,A Math,Notes
+/pdfs\chem_is_try.pdf,2023,O Lvl,Chemistry,Notes
+/pdfs\quantitiesandunits.pdf,2024,Y1 Poly,PEEE1,Notes
+/pdfs\charge_voltage_current.pdf,2024,Y1 Poly,PEEE1,Notes
+/pdfs\resistance_ohmslaw.pdf,2024,Y1 Poly,PEEE1,Notes
+/pdfs\energyandpower.pdf,2024,Y1 Poly,PEEE1,Notes
+/pdfs\seriescircuits.pdf,2024,Y1 Poly,PEEE1,Notes
+/pdfs\parallelcircuits.pdf,2024,Y1 Poly,PEEE1,Notes
+/pdfs\superposition.pdf,2024,Y1 Poly,PEEE1,Notes
+/pdfs\electromagnetism.pdf,2024,Y1 Poly,PEEE1,Notes
+/pdfs\acvoltage_current.pdf,2024,Y1 Poly,PEEE1,Notes
+/pdfs\capacitors.pdf,2024,Y1 Poly,PEEE1,Notes
+/pdfs\inductors.pdf,2024,Y1 Poly,PEEE1,Notes
+/pdfs\transformers.pdf,2024,Y1 Poly,PEEE1,Notes
+/pdfs\peee1_extraformulae.pdf,2024,Y1 Poly,PEEE1,Summary
+/pdfs\peee1_summary.pdf,2024,Y1 Poly,PEEE1,Summary
+/pdfs\matlproperties_testingmethods.pdf,2024,Y1 Poly,EMATL1,Notes
+/pdfs\plaincarbonsteels.pdf,2024,Y1 Poly,EMATL1,Notes
+/pdfs\heattreatment.pdf,2024,Y1 Poly,EMATL1,Notes
+/pdfs\alloysteels.pdf,2024,Y1 Poly,EMATL1,Notes
+/pdfs\aluminiumalloys.pdf,2024,Y1 Poly,EMATL1,Notes
+/pdfs\matl1_casting.pdf,2024,Y1 Poly,EMATL1,Notes
+/pdfs\ematl1_summariser.pdf,2024,Y1 Poly,EMATL1,Summary
+/pdfs\ematl1_memorypage.pdf,2024,Y1 Poly,EMATL1,Summary
+/pdfs\mech1_est_summary.pdf,2024,Y1 Poly,MECH1,Summary
+/pdfs\cad_ca2quiz_summary.pdf,2024,Y1 Poly,CAD,Summary
+/pdfs\complexnumbersarecomplex.pdf,2024,Y1 Poly,Eng Math 1,Practises
+/pdfs\lathetheory.pdf,2024,Y1 Poly,I2E,Notes
+/pdfs\millingtheory.pdf,2024,Y1 Poly,I2E,Notes
+/pdfs\components_mechanisms.pdf,2024,Y1 Poly,I2E,Notes
+/pdfs\handtools.pdf,2024,Y1 Poly,I2E,Notes
+/pdfs\digitalfabrication.pdf,2024,Y1 Poly,I2E,Notes
+/pdfs\I2ESUMMARISERS_ACTUALFINAL.pdf,2024,Y1 Poly,I2E,Summary
+/pdfs\digital_vs_analog.pdf,2024,Y1 Poly,DE1,Notes
+/pdfs\numberingsystems.pdf,2024,Y1 Poly,DE1,Notes
+/pdfs\logicgates.pdf,2024,Y1 Poly,DE1,Notes
+/pdfs\booleanalgebra.pdf,2024,Y1 Poly,DE1,Notes
+/pdfs\combinational_logic_circuits.pdf,2024,Y1 Poly,DE1,Notes
+/pdfs\basicfluidproperties.pdf,2024,Y1 Poly,TF1,Notes
+/pdfs\stationaryfluidpressure.pdf,2024,Y1 Poly,TF1,Notes
+/pdfs\buoyancy.pdf,2024,Y1 Poly,TF1,Notes
+/pdfs\pressure_movingfluid.pdf,2024,Y1 Poly,TF1,Notes
+/pdfs\pressure_measurement.pdf,2024,Y1 Poly,TF1,Notes
+/pdfs\flowrate_continuityeqn.pdf,2024,Y1 Poly,TF1,Notes
+/pdfs\mst_theoryqns.pdf,2024,Y1 Poly,TF1,Summary
+/pdfs\cpp_fundamentals.pdf,2024,Y1 Poly,CPROM,Notes
+/pdfs\introtobistables.pdf,2025,Y1 Poly,DE1,Notes
+/pdfs\clocksignals_flipflops.pdf,2025,Y1 Poly,DE1,Notes
+/pdfs\multivibrators.pdf,2025,Y1 Poly,DE1,Notes
+/pdfs\thermodynamics.pdf,2025,Y1 Poly,TF1,Notes
+/pdfs\thermodynamic_processes.pdf,2025,Y1 Poly,TF1,Notes
+/pdfs\first_law_of_thermodynamics.pdf,2025,Y1 Poly,TF1,Notes
+/pdfs\idealgaslaws.pdf,2025,Y1 Poly,TF1,Notes
+/pdfs\idealgasprocesses.pdf,2025,Y1 Poly,TF1,Notes
+/pdfs\steamphases_properties.pdf,2025,Y1 Poly,TF1,Notes
+/pdfs\steamtables.pdf,2025,Y1 Poly,TF1,Notes
+/pdfs\steamprocesses.pdf,2025,Y1 Poly,TF1,Notes
+/pdfs\tf1_estsummary.pdf,2025,Y1 Poly,TF1,Summary
+/pdfs\em2_est5.pdf,2025,Y1 Poly,Eng Math 2,Practises
+/pdfs\failureofmetals.pdf,2025,Y2 Poly,EMATL2,Notes
+/pdfs\ceramics_composites.pdf,2025,Y2 Poly,EMATL2,Notes
+/pdfs\heattreatment_steels.pdf,2025,Y2 Poly,EMATL2,Notes
+/pdfs\nondestructivetesting.pdf,2025,Y2 Poly,EMATL2,Notes
+/pdfs\corrosion.pdf,2025,Y2 Poly,EMATL2,Notes
+/pdfs\ematl2_summary.pdf,2025,Y2 Poly,EMATL2,Summary
+/pdfs\second_law_of_thermodynamics.pdf,2025,Y2 Poly,TF2,Notes
+/pdfs\gaspoweredcycles.pdf,2025,Y2 Poly,TF2,Notes
+/pdfs\vapourpoweredcycles.pdf,2025,Y2 Poly,TF2,Notes
+/pdfs\aircompressors.pdf,2025,Y2 Poly,TF2,Notes
+/pdfs\SFBM_desmoscalculator.pdf,2025,Y2 Poly,MECH2,Others
+/pdfs\cnc_turning_fundamentals.pdf,2025,Y2 Poly,CAM,Notes
+/pdfs\facing_roughing_finishing_grooving.pdf,2025,Y2 Poly,CAM,Notes
+/pdfs\parting_threading.pdf,2025,Y2 Poly,CAM,Notes
+/pdfs\drilling_boring.pdf,2025,Y2 Poly,CAM,Notes
+/pdfs\2ndsideturning.pdf,2025,Y2 Poly,CAM,Notes
+/pdfs\cnc_milling_fundamentals.pdf,2025,Y2 Poly,CAM,Notes
+/pdfs\face_profilemilling.pdf,2025,Y2 Poly,CAM,Notes
+/pdfs\mill_drilling.pdf,2025,Y2 Poly,CAM,Notes
+/pdfs\dynamicroughing_pocketing.pdf,2025,Y2 Poly,CAM,Notes
+/pdfs\default_settings.pdf,2025,Y2 Poly,CAM,Summary
+/pdfs\cncturningsummary.pdf,2025,Y2 Poly,CAM,Summary
+/pdfs\cncmillingsummary.pdf,2025,Y2 Poly,CAM,Summary
+/pdfs\circuits_i.pdf,2025,Uni,ME2105,Notes
+/pdfs\circuits_ii.pdf,2025,Uni,ME2105,Notes
+/pdfs\circuits_iii.pdf,2025,Uni,ME2105,Notes
+/pdfs\sensors_signalconditioning.pdf,2025,Uni,ME2105,Notes
+/pdfs\capacitors_inductors.pdf,2025,Uni,ME2105,Notes
+/pdfs\opamps.pdf,2025,Uni,ME2105,Notes
+/pdfs\electromagnetism_w_vectorcalc.pdf,2025,Uni,ME2105,Notes
+/pdfs\dcmachines_motors.pdf,2025,Uni,ME2105,Notes
+/pdfs\acsignals_power.pdf,2025,Uni,ME2105,Notes
+/pdfs\ac_motors.pdf,2025,Uni,ME2105,Notes
+/pdfs\me2105_formulae.pdf,2025,Uni,ME2105,Summary
+/pdfs\me2105_topicalqns.pdf,2025,Uni,ME2105,Practises
+/pdfs\surface_texture.pdf,2025,Y2 Poly,DB,Notes
+/pdfs\limits_fits.pdf,2025,Y2 Poly,DB,Notes
+/pdfs\gd_and_t.pdf,2025,Y2 Poly,DB,Notes
+/pdfs\dfma.pdf,2025,Y2 Poly,DB,Notes
+/pdfs\dfmg.pdf,2025,Y2 Poly,DB,Notes
+/pdfs\dfja.pdf,2025,Y2 Poly,DB,Notes
+/pdfs\db_mst_review.pdf,2025,Y2 Poly,DB,Summary
+/pdfs\fundamentals_of_manufacturing.pdf,2025,Y2 Poly,MPDFM,Notes
+/pdfs\sheetmetal.pdf,2025,Y2 Poly,MPDFM,Notes
+/pdfs\reverse_engineering.pdf,2025,Y2 Poly,MPDFM,Notes
+/pdfs\additive_manufacturing.pdf,2025,Y2 Poly,MPDFM,Notes
+/pdfs\quiz1_review.pdf,2025,Y2 Poly,MPDFM,Summary
+/pdfs\pneumaticsystems.pdf,2025,Y2 Poly,IA,Notes
+/pdfs\electromechanicalsystems.pdf,2025,Y2 Poly,IA,Notes
+/pdfs\gear_selection.pdf,2026,Y2 Poly,DB,Notes
+/pdfs\bearing_selection.pdf,2026,Y2 Poly,DB,Notes
+/pdfs\belt_selection.pdf,2026,Y2 Poly,DB,Notes
+/pdfs\vr_xr_for_manufacturing.pdf,2026,Y2 Poly,MPDFM,Notes
+/pdfs\mpdfm_castingprocesses.pdf,2026,Y2 Poly,MPDFM,Notes
+/pdfs\bulkdeformation.pdf,2026,Y2 Poly,MPDFM,Notes
+/pdfs\polymerprocesses.pdf,2026,Y2 Poly,MPDFM,Notes
+/pdfs\PLCs.pdf,2026,Y2 Poly,IA,Notes
+/pdfs\sensors.pdf,2026,Y2 Poly,IA,Notes
+/pdfs\vector_forces_moments.pdf,2026,Uni,ME1103,Notes
+/pdfs\static_rigid_bodies.pdf,2026,Uni,ME1103,Notes
+/pdfs\truss_analysis.pdf,2026,Uni,ME1103,Notes
+/pdfs\frame_machine_analysis.pdf,2026,Uni,ME1103,Notes
+/pdfs\mechanical_properties_materials.pdf,2026,Uni,ME1103,Notes
+/pdfs\metals_ceramics.pdf,2026,Uni,ME1103,Notes
+/pdfs\polymers_composites.pdf,2026,Uni,ME1103,Notes
+/pdfs\strengthening_toughening.pdf,2026,Uni,ME1103,Notes
+/pdfs\me1103_topicalpractises.pdf,2026,Uni,ME1103,Practises
+/pdfs\me1103_materialexplanations.pdf,2026,Uni,ME1103,Summary
+/pdfs\mohrs_circle_solver.pdf,2026,Y3 Poly,MECH3,Others
+/pdfs\mech3_formulas.pdf,2026,Y3 Poly,MECH3,Summary
+/pdfs\heat_transfer.pdf,2026,Y3 Poly,THERMO,Notes
+/pdfs\steam_power_plants.pdf,2026,Y3 Poly,THERMO,Notes
+/pdfs\thermo_mst_theory.pdf,2026,Y3 Poly,THERMO,Summary
+/pdfs\fluid_flow_piping_systems.pdf,2026,Y3 Poly,FMECH,Notes
+/pdfs\positive_displacement_pumps.pdf,2026,Y3 Poly,FMECH,Notes
+/pdfs\centrifugal_pumps.pdf,2026,Y3 Poly,FMECH,Notes
+/pdfs\industrial_hydraulics.pdf,2026,Y3 Poly,FMECH,Notes
+/pdfs\MADCAD_mst_theory.pdf,2026,Y3 Poly,MADCAD,Summary
+/pdfs\MADCAD_BSP_quiz.pdf,2026,Y3 Poly,MADCAD,Summary
+/pdfs\shaft_detailing_guide.pdf,2026,Y3 Poly,MADCAD,Summary

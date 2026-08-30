@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohr's Circle Solver</title>
+    <link rel="stylesheet" href="styles_mohrscircle.css">
+</head>
+
+<body>
+    <div class="sidebar">
+        <h1 id = "title">Mohr's Stress Circle</h1>
+        <br>
+        <div class="parameter-container">
+            <div class="slider-parameter">
+                <div class="number-display">
+                    <label>$\sigma_x = $ </label>
+                    <input class="number" id="stress-x" value="60">
+                    <label>$N/mm^2$</label>
+                </div>
+                <input class="slider" id="stress-x-slider" type="range" min="-100" max="100" value=60>
+            </div>
+            <div class="slider-parameter">
+                <div class="number-display">
+                    <label>$\sigma_y = $ </label>
+                    <input class="number" id="stress-y" value="20">
+                    <label>$N/mm^2$</label>
+                </div>
+                <input class="slider" id="stress-y-slider" type="range" min="-100" max="100" value=20>
+            </div>
+            <div class="slider-parameter">
+                <div class="number-display">
+                    <label>$\tau_{xy} = $ </label>
+                    <input class="number" id="shear" value="-25">
+                    <label>$N/mm^2$</label>
+                </div>
+                <input class="slider" id="shear-slider" type="range" min="-100" max="100" value=-25>
+            </div>
+            <div class="slider-parameter">
+                <div class="number-display">
+                    <label>$\theta_J = $ </label>
+                    <input class="number" id="joint" value="20">
+                    <label>$^\circ$</label>
+                </div>
+                <input class="slider" id="joint-slider" type="range" min="-90" max="90" value=0>
+            </div>
+        </div>
+        <br>
+        <div class="number-output">
+            <p>
+                $\sigma_P = 20N/mm^2,\;\theta_P = 20^\circ$<br>
+                $\sigma_Q = 20N/mm^2,\;\theta_Q = 20^\circ$<br>
+                $\tau_{+S} = 20N/mm^2,\;\theta_{+S} = 20^\circ$<br>
+                $\tau_{-S} = 20N/mm^2,\;\theta_{-S} = 20^\circ$<br>
+                <br>
+                $\sigma_P = 20N/mm^2,\;\tau = 20^\circ$
+            </p>
+        </div>
+        <br>
+        <div class="toggle-buttons">
+            <button>Disable Joint</button>
+            <button id = "strain-toggle-btn">Toggle to Strain</button>
+            <button>Toggle Strain Gauge Rosette</button>
+        </div>
+    </div>
+    <div class="svg-container">
+        <svg viewBox="-250 -200 500 400">
+            <circle cx="0" cy="0" r="80" class="black-svg" />
+            <circle id="minor-circle" class="black-svg dashed"></circle>
+            <circle id="major-circle" class="black-svg dashed"></circle>
+            <path d="M -140,0 L 140,0" class="black-svg"></path>
+            <path id="xAxisArrow" class="black-svg"></path>
+            <path id="plane-connector" class="black-svg dashed"></path>
+            <path d="M 0, -80 L 0,80" class="black-svg dashed"></path>
+            <path class = "joint dashed" id = "joint-connector"></path>
+            <circle cx="0" cy="0" r="3" fill="black"></circle>
+
+            <circle r="4" id="V-point"></circle>
+            <circle r="4" id="H-point"></circle>
+            <circle r="3" cx="80" cy="0" id="P-point"></circle>
+            <circle r="3" cx="-80" cy="0" id="Q-point"></circle>
+            <circle r="3" cx="0" cy="-80" id="S-pos-point"></circle>
+            <circle r="3" cx="0" cy="80" id="S-neg-point"></circle>
+            <circle r="2.5" cx="0" cy="-80" fill = "purple"></circle>
+            <circle r="2.5" cx="0" cy="80" fill = "purple"></circle>
+            <circle r="3" id = "J-point"></circle>
+
+            <path id="yAxis" class="black-svg"></path>
+
+            <rect x="-220" y="-160" width="40" height="40" rx="1" ry="1" id="element"></rect>
+            <path id="element-stresses" class="black-svg"></path>
+
+            <text class="point-label" id="V-label" />
+            <text class="point-label" id="H-label" />
+            <text class="point-label" id="P-label" />
+            <text class="point-label" id="Q-label" />
+            <text class="point-label" id="S-pos-label" />
+            <text class="point-label" id="S-neg-label" />
+            <text class="point-label" id="C-label"/>
+
+            <text class="point-label" id="element-x-label" />
+            <text class="point-label" id="element-y-label" />
+            <text class="point-label" id="element-t-label" />
+
+        </svg>
+    </div>
+</body>
+
+
+<script src="mohrscircle.js"></script>
+<script>
+    window.MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        }
+    };
+</script>
+
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js">
+</script>
+
+</html>

@@ -1,0 +1,198 @@
+@import url('https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:ital,wght@0,200..900;1,200..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+
+:root {
+    --white: #F8F5F1;
+    --black: #131315;
+    --red: #EB5160;
+    --blue: #3083DC;
+    --green: #2EBFA5;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: DM Sans;
+    scroll-behavior: smooth;
+    background-color: var(--white);
+}
+
+body {
+    display: flex;
+    flex-direction: row;
+}
+
+.sidebar {
+    height: 100vh;
+    width: 30vw;
+    padding: 2em;
+    border-right: 2px solid var(--black);
+    align-items: center;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2.3em;
+    text-decoration: underline;
+}
+
+.parameter-container,
+.number-output,
+.toggle-buttons {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid var(--black);
+    border-radius: 10px;
+    padding: 1em;
+    align-items: center;
+}
+
+.slider-parameter {
+    font-size: 1.2em;
+    width: 16em;
+}
+
+.number {
+    field-sizing: content;
+    font-size: 1.1em;
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    background-color: var(--white);
+    border: none;
+}
+
+.number:hover {
+    border: 1px solid var(--black);
+    border-radius: 2px;
+}
+
+.slider {
+    width: 100%;
+    appearance: none;
+    height: 4px;
+    border-radius: 2px;
+    background-color: var(--black);
+}
+
+.slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 20px;
+    aspect-ratio: 1;
+    background-color: var(--black);
+    border: 3px solid var(--white);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.slider::-webkit-slider-thumb:hover {
+    width: 24px;
+}
+
+.svg-container {
+    width: 70vw;
+    display: flex;
+    justify-content: center;
+}
+
+svg {
+    height: 100vh;
+}
+
+.black-svg {
+    stroke: var(--black);
+    stroke-width: 2px;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.joint {
+    stroke: orange;
+    stroke-width: 2px;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.dashed {
+    stroke-dasharray: 15 8;
+}
+
+#V-point {
+    fill: green;
+}
+
+#H-point {
+    fill: red;
+}
+
+#P-point,
+#Q-point {
+    fill: var(--blue);
+}
+
+#S-pos-point,
+#S-neg-point {
+    fill: purple;
+}
+
+#J-point {
+    fill: orange;
+}
+
+#element {
+    fill: orange;
+    border-radius: 5px;
+}
+
+.point-label {
+    stroke: var(--white);
+    stroke-width: 0.2px;
+}
+
+svg text {
+    font-weight: 800;
+    font-size: 8px;
+}
+
+#V-label {
+    fill: green;
+}
+
+#H-label {
+    fill: red;
+}
+
+#P-label,
+#Q-label {
+    fill: var(--blue);
+}
+
+#S-pos-label,
+#S-neg-label {
+    fill: purple;
+}
+
+.toggle-buttons{
+    gap: 10px
+}
+
+button{
+    appearance: none;
+    width: 100%;
+    padding: 0.5em;
+    font-family: DM Sans;
+    background-color: var(--white);
+    border: 1px solid var(--black);
+    border-radius: 100px;
+}
+
+button:hover{
+    cursor: pointer;
+    filter: brightness(0.9);
+}
