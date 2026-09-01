@@ -145,6 +145,10 @@ svg {
     fill: orange;
 }
 
+#J-stress-label, #J-shear-label{
+    fill: #CC5500;
+}
+
 #element {
     fill: orange;
     border-radius: 5px;
@@ -158,6 +162,11 @@ svg {
 svg text {
     font-weight: 800;
     font-size: 8px;
+}
+
+.axis-label{
+    font-weight: 500;
+    font-size:10px
 }
 
 #V-label {
@@ -174,15 +183,17 @@ svg text {
 }
 
 #S-pos-label,
-#S-neg-label {
+#S-neg-label,
+#minor-S-pos-label,
+#minor-S-neg-label {
     fill: purple;
 }
 
-.toggle-buttons{
+.toggle-buttons {
     gap: 10px
 }
 
-button{
+button {
     appearance: none;
     width: 100%;
     padding: 0.5em;
@@ -192,7 +203,24 @@ button{
     border-radius: 100px;
 }
 
-button:hover{
+button:hover {
     cursor: pointer;
     filter: brightness(0.9);
+}
+
+span {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.1em;
+}
+
+#joint-menu{
+    font-size:1em;
+}
+
+#S-pos-angle, #S-neg-angle{
+    font-size: 1em;
+}
+
+.hide{
+    display: none;
 }

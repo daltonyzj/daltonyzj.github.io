@@ -10,9 +10,9 @@
 
 <body>
     <div class="sidebar">
-        <h1 id = "title">Mohr's Stress Circle</h1>
+        <h1 id="title">Mohr's Stress Circle</h1>
         <br>
-        <div class="parameter-container">
+        <div class="parameter-container stress">
             <div class="slider-parameter">
                 <div class="number-display">
                     <label>$\sigma_x = $ </label>
@@ -37,78 +37,135 @@
                 </div>
                 <input class="slider" id="shear-slider" type="range" min="-100" max="100" value=-25>
             </div>
-            <div class="slider-parameter">
+            <div id="joint-slider-box" class="slider-parameter">
                 <div class="number-display">
                     <label>$\theta_J = $ </label>
-                    <input class="number" id="joint" value="20">
+                    <input class="number" id="joint" value="-20">
                     <label>$^\circ$</label>
                 </div>
-                <input class="slider" id="joint-slider" type="range" min="-90" max="90" value=0>
+                <input class="slider" id="joint-slider" type="range" min="-90" max="90" value=-20>
             </div>
         </div>
+
+        <div class="parameter-container strain">
+            <div class="slider-parameter">
+                <div class="number-display">
+                    <label>$\varepsilon_1 = $ </label>
+                    <input class="number" id="strain-1" value="200">
+                    <label>$\times 10^{-6} \text{ strains} $</label>
+                </div>
+                <input class="slider" id="strain-1-slider" type="range" min="-1000" max="1000" value=200>
+            </div>
+            <div class="slider-parameter">
+                <div class="number-display">
+                    <label>$\varepsilon_2 = $ </label>
+                    <input class="number" id="strain-2" value="500">
+                    <label>$\times 10^{-6} \text{ strains} $</label>
+                </div>
+                <input class="slider" id="strain-2-slider" type="range" min="-1000" max="1000" value=500>
+            </div>
+            <div class="slider-parameter">
+                <div class="number-display">
+                    <label>$\varepsilon_3 = $ </label>
+                    <input class="number" id="strain-3" value="-700">
+                    <label>$\times 10^{-6} \text{ strains} $</label>
+                </div>
+                <input class="slider" id="strain-3-slider" type="range" min="-1000" max="1000" value=-700>
+            </div>
+            <div class="slider-parameter">
+                <div class="number-display">
+                    <label>$\theta_4 = $ </label>
+                    <input class="number" id="gauge-4" value="60">
+                    <label>$^\circ $</label>
+                </div>
+                <input class="slider" id="gauge-4-slider" type="range" min="-180" max="180" value=60>
+            </div>
+        </div>
+
         <br>
-        <div class="number-output">
+        <div class="number-output stress">
             <p>
-                $\sigma_P = 20N/mm^2,\;\theta_P = 20^\circ$<br>
-                $\sigma_Q = 20N/mm^2,\;\theta_Q = 20^\circ$<br>
-                $\tau_{+S} = 20N/mm^2,\;\theta_{+S} = 20^\circ$<br>
-                $\tau_{-S} = 20N/mm^2,\;\theta_{-S} = 20^\circ$<br>
+                $\sigma_P = $ <span id="P-value"></span> $N/mm^2,\;\theta_P = $<span id="P-angle"></span>$^\circ$<br>
+                $\sigma_Q = $<span id="Q-value"></span>$N/mm^2,\;\theta_Q = $<span id="Q-angle"></span>$^\circ$<br>
+                $\tau_{+S} = $<span id="S-pos-value"></span>$N/mm^2$ <span class="to-hide">$,\;\theta_{+S} = $<span
+                        id="S-pos-angle"></span>$^\circ$</span><br>
+                $\tau_{-S} = $<span id="S-neg-value"></span>$N/mm^2$ <span class="to-hide">$,\;\theta_{-S} = $<span
+                        id="S-neg-angle"></span>$^\circ$</span><br>
                 <br>
-                $\sigma_P = 20N/mm^2,\;\tau = 20^\circ$
+                <span id="joint-menu">$\sigma_J = $<span id="J-stress-value"></span>$N/mm^2,\;\tau_J = $<span
+                        id="J-shear-value"></span>$N/mm^2$</span>
+            </p>
+        </div>
+
+        <div class="number-output strain">
+            <p>
+                $\varepsilon_p = $ <span id="P-value"></span> $N/mm^2,\;\theta_P = $<span id="P-angle"></span>$^\circ$<br>
+                $\varepsilon_q = $<span id="Q-value"></span>$N/mm^2,\;\theta_Q = $<span id="Q-angle"></span>$^\circ$<br>
+                <br>
+                <span id="joint-menu">$\varepsilon_4 = $<span id="J-stress-value"></span>$\times 10^{-6}\text{ strains},\;\phi_4 = $<span id="J-shear-value"></span>$\times 10^{-6}\text{ strains}$</span>
             </p>
         </div>
         <br>
         <div class="toggle-buttons">
-            <button>Disable Joint</button>
-            <button id = "strain-toggle-btn">Toggle to Strain</button>
-            <button>Toggle Strain Gauge Rosette</button>
+            <button id="joint-toggle-btn">Disable Joint</button>
+            <button id="strain-toggle-btn">Toggle to Strain</button>
+            <button id="rosette-toggle-btn" class = "strain">Toggle Strain Gauge Rosette</button>
+            <button id="transfer-btn" class = "strain">Transfer Strain State</button>
         </div>
     </div>
     <div class="svg-container">
         <svg viewBox="-250 -200 500 400">
             <circle cx="0" cy="0" r="80" class="black-svg" />
-            <circle id="minor-circle" class="black-svg dashed"></circle>
-            <circle id="major-circle" class="black-svg dashed"></circle>
+            <circle id="minor-circle" class="black-svg dashed stress"></circle>
+            <circle id="major-circle" class="black-svg dashed stress"></circle>
             <path d="M -140,0 L 140,0" class="black-svg"></path>
             <path id="xAxisArrow" class="black-svg"></path>
-            <path id="plane-connector" class="black-svg dashed"></path>
-            <path d="M 0, -80 L 0,80" class="black-svg dashed"></path>
-            <path class = "joint dashed" id = "joint-connector"></path>
+            <path id="plane-connector" class="black-svg dashed stress"></path>
+            <path d="M 0, -80 L 0,80" class="black-svg dashed stress"></path>
+            <path class="joint dashed stress" id="joint-connector"></path>
             <circle cx="0" cy="0" r="3" fill="black"></circle>
 
-            <circle r="4" id="V-point"></circle>
-            <circle r="4" id="H-point"></circle>
-            <circle r="3" cx="80" cy="0" id="P-point"></circle>
-            <circle r="3" cx="-80" cy="0" id="Q-point"></circle>
-            <circle r="3" cx="0" cy="-80" id="S-pos-point"></circle>
-            <circle r="3" cx="0" cy="80" id="S-neg-point"></circle>
-            <circle r="2.5" cx="0" cy="-80" fill = "purple"></circle>
-            <circle r="2.5" cx="0" cy="80" fill = "purple"></circle>
-            <circle r="3" id = "J-point"></circle>
+            <circle r="4" id="V-point" class = "stress"></circle>
+            <circle r="4" id="H-point" class = "stress"></circle>
+            <circle r="3" cx="80" cy="0" id="P-point" class = "stress"></circle>
+            <circle r="3" cx="-80" cy="0" id="Q-point"class = "stress"></circle>
+            <circle r="3" cx="0" cy="-80" id="S-pos-point" class = "stress"></circle>
+            <circle r="3" cx="0" cy="80" id="S-neg-point" class = "stress"></circle>
+            <circle r="2.5" cx="0" cy="-80" fill="purple" class = "stress"></circle>
+            <circle r="2.5" cx="0" cy="80" fill="purple" class = "stress"></circle>
+            <circle r="3" id="J-point" class = "stress"></circle>
 
             <path id="yAxis" class="black-svg"></path>
 
-            <rect x="-220" y="-160" width="40" height="40" rx="1" ry="1" id="element"></rect>
-            <path id="element-stresses" class="black-svg"></path>
+            <rect x="-220" y="-160" width="40" height="40" rx="1" ry="1" id="element" class = "stress"></rect>
+            <path id="element-stresses" class="black-svg stress"></path>
 
-            <text class="point-label" id="V-label" />
-            <text class="point-label" id="H-label" />
-            <text class="point-label" id="P-label" />
-            <text class="point-label" id="Q-label" />
-            <text class="point-label" id="S-pos-label" />
-            <text class="point-label" id="S-neg-label" />
-            <text class="point-label" id="C-label"/>
+            <text class="point-label stress" id="V-label" />
+            <text class="point-label stress" id="H-label" />
+            <text class="point-label stress" id="P-label" />
+            <text class="point-label stress" id="Q-label" />
+            <text class="point-label stress" id="S-pos-label" />
+            <text class="point-label stress" id="S-neg-label" />
+            <text class="point-label stress" id="minor-S-pos-label" />
+            <text class="point-label stress" id="minor-S-neg-label" />
+            <text class="point-label stress" id="C-label" />
+            <text class="point-label stress" id="J-stress-label"></text>
+            <text class="point-label stress" id="J-shear-label"></text>
 
-            <text class="point-label" id="element-x-label" />
-            <text class="point-label" id="element-y-label" />
-            <text class="point-label" id="element-t-label" />
+            <text class="point-label stress" id="element-x-label" />
+            <text class="point-label stress" id="element-y-label" />
+            <text class="point-label stress" id="element-t-label" />
+            <text class="point-label stress" id="element-j-label" />
+
+            <text class="axis-label" id="x-axis-label" x="140" y="-5">+σ</text>
+            <text class="axis-label" id="y-axis-label" />
 
         </svg>
     </div>
 </body>
 
 
-<script src="mohrscircle.js"></script>
+<script src="mohrs_circle_logic.js"></script>
 <script>
     window.MathJax = {
         tex: {
