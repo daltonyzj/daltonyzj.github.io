@@ -123,16 +123,16 @@ svg {
     stroke-dasharray: 15 8;
 }
 
-#V-point {
+#V-point, #strain-3-point {
     fill: green;
 }
 
-#H-point {
+#H-point,#strain-1-point {
     fill: red;
 }
 
 #P-point,
-#Q-point {
+#Q-point, #strain-2-point, #P-strain-point, #Q-strain-point {
     fill: var(--blue);
 }
 
@@ -141,7 +141,7 @@ svg {
     fill: purple;
 }
 
-#J-point {
+#J-point, #strain-4-point {
     fill: orange;
 }
 
@@ -223,4 +223,33 @@ span {
 
 .hide{
     display: none;
+}
+
+.gauge{
+    stroke-width: 6px;
+    stroke-linecap: round;
+}
+
+#sgauge-1{
+    stroke: red;
+}
+
+#sgauge-2{
+    stroke:var(--blue);
+}
+
+#sgauge-3{
+    stroke:green;
+}
+
+#red-label-pls, #strain-1{
+    color:red;
+}
+
+#blue-label-pls, #strain-2{
+    color:var(--blue);
+}
+
+#green-label-pls, #strain-3{
+    color:green;
 }

@@ -80,6 +80,19 @@ const input4 = document.getElementById("gauge-4");
 
 const rosetteButton = document.getElementById("rosette-toggle-btn");
 
+const strain1Point = document.getElementById("strain-1-point");
+const strain2Point = document.getElementById("strain-2-point");
+const strain3Point = document.getElementById("strain-3-point");
+const strain4Point = document.getElementById("strain-4-point");
+
+const strainConnectors = document.getElementById("strain-connectors");
+
+const strainGaugeRosette = document.getElementById("strain-gauge-rosette");
+const rosetteGauge1 = document.getElementById("sgauge-1");
+const rosetteGauge2 = document.getElementById("sgauge-2");
+const rosetteGauge3 = document.getElementById("sgauge-3");
+const gaugeConnector = document.getElementById("gauge-connector");
+
 
 
 
@@ -103,7 +116,7 @@ let isStressMode = true;
 let strain1, strain2, strain3, angle4;
 let strainP, strainQ;
 let rosetteSetup = "rectangular";
-let strainCenter, shear1, strainRadius;
+let strainCenter, shear1, strainRadius, shear2, shear3;
 let baseStrainAngle;
 let strainScalingFactor;
 let gaugeStrain, gaugeShear;
@@ -154,12 +167,12 @@ function updateStressCircle() {
     stressP = center + radius;
     stressQ = center - radius;
 
-    originalAngle = Math.atan(shear / (stressX - center));
-    if (center > stressX) originalAngle += Math.PI;
-    if (originalAngle > Math.PI) originalAngle = -(2 * Math.PI - originalAngle);
+    baseAngle = Math.atan(shear / (stressX - center));
+    if (center > stressX) baseAngle += Math.PI;
+    if (baseAngle > Math.PI) baseAngle = -(2 * Math.PI - baseAngle);
 
-    if (originalAngle > 0) maxShearAngle = originalAngle - 0.5 * Math.PI;
-    else maxShearAngle = Math.sign(-originalAngle - 0.5 * Math.PI) * (Math.PI - Math.sign(-originalAngle - 0.5 * Math.PI) * (-originalAngle - 0.5 * Math.PI));
+    if (baseAngle > 0) maxShearAngle = baseAngle - 0.5 * Math.PI;
+    else maxShearAngle = Math.sign(-baseAngle - 0.5 * Math.PI) * (Math.PI - Math.sign(-baseAngle - 0.5 * Math.PI) * (-baseAngle - 0.5 * Math.PI));
 
 
 
@@ -215,8 +228,8 @@ function updateStressCircle() {
     jStress.textContent = `${jointStress.toFixed(2)}`;
     jShear.textContent = `${jointShear.toFixed(2)}`;
 
-    pAngle.textContent = `${(0.5 * originalAngle * 180 / Math.PI).toFixed(2)}`;
-    qAngle.textContent = `${(-0.5 * Math.sign(originalAngle) * (Math.PI - Math.abs(originalAngle)) * 180 / Math.PI).toFixed(2)}`;
+    pAngle.textContent = `${(0.5 * baseAngle * 180 / Math.PI).toFixed(2)}`;
+    qAngle.textContent = `${(-0.5 * Math.sign(baseAngle) * (Math.PI - Math.abs(baseAngle)) * 180 / Math.PI).toFixed(2)}`;
 
 
     if (drawJoint) jointButton.textContent = "Disable Joint";
@@ -224,10 +237,23 @@ function updateStressCircle() {
 }
 
 
-function getActualCoords(X, Y, returnX, isStress) {
-    scalingFactor = radius / 80;
-    if (returnX) return ((X - center) / scalingFactor);
-    else return -Y / scalingFactor;
+function getActualCoords(X, Y, returnX) {
+    let effScalingFactor, effRadius, effCenter;
+
+    if (isStressMode) {
+        effRadius = radius;
+        effCenter = center;
+        scalingFactor = radius / 80;
+        effScalingFactor = scalingFactor;
+    } else {
+        effRadius = strainRadius;
+        effCenter = strainCenter;
+        strainScalingFactor = strainRadius / 80;
+        effScalingFactor = strainScalingFactor;
+    }
+
+    if (returnX) return ((X - effCenter) / effScalingFactor);
+    else return -Y / effScalingFactor;
 }
 
 function plotPoint(X, Y, pointID) {
@@ -236,7 +262,8 @@ function plotPoint(X, Y, pointID) {
 }
 
 function drawYAxis() {
-    yAxisValue = -center / scalingFactor;
+    if (isStressMode) yAxisValue = -center / scalingFactor;
+    else yAxisValue = -strainCenter / strainScalingFactor;
     const axisHeight = 100;
     let d;
 
@@ -245,7 +272,7 @@ function drawYAxis() {
         M ${yAxisValue}, ${axisHeight} L ${yAxisValue}, ${-axisHeight}
         L ${yAxisValue + 2}, ${-axisHeight + 4} M ${yAxisValue}, ${-axisHeight} L ${yAxisValue - 2}, ${-axisHeight + 4}
         `;
-        labelPoint(yAxisValue, axisHeight + 5, "+𝜏", yAxisLabel, true);
+        labelPoint(yAxisValue, axisHeight + 5, yAxisLabel.textContent, yAxisLabel, true);
     }
     else {
         d = `
@@ -253,15 +280,13 @@ function drawYAxis() {
         L ${Math.sign(yAxisValue) * 180 + 2}, ${-axisHeight + 4} M ${Math.sign(yAxisValue) * 180}, ${-axisHeight} L ${Math.sign(yAxisValue) * 180 - 2}, ${-axisHeight + 4}
         `;
         d += drawAxisSquiggle(Math.sign(yAxisValue) == -1);
-        labelPoint(Math.sign(yAxisValue) * 180, axisHeight + 5, "+𝜏", yAxisLabel, true);
+        labelPoint(Math.sign(yAxisValue) * 180, axisHeight + 5, yAxisLabel.textContent, yAxisLabel, true);
     }
 
     if (yAxisValue > 140) xAxisArrow.setAttribute("d", '');
     else xAxisArrow.setAttribute("d", ` M 140, 0,  L 136,2 M 140, 0 L 136, -2`);
 
     yAxis.setAttribute("d", d);
-
-
 }
 
 function drawAxisSquiggle(onLeft) {
@@ -469,14 +494,12 @@ function drawOtherCircles() { //also finds max shear
 
 function plotJoint() { //also finds joint stresses
     if (drawJoint) {
-        let displayAngle = originalAngle;
-        if (displayAngle <= -Math.PI) displayAngle += 2 * Math.PI;
 
         let effectiveYAxis = yAxisValue;
         if (Math.abs(yAxisValue) >= 140) effectiveYAxis = Math.sign(yAxisValue) * 180;
 
-        jointStress = radius * Math.cos(originalAngle - 2 * jointAngle) + center;
-        jointShear = radius * Math.sin(originalAngle - 2 * jointAngle)
+        jointStress = radius * Math.cos(baseAngle - 2 * jointAngle) + center;
+        jointShear = radius * Math.sin(baseAngle - 2 * jointAngle)
 
         let actualX = getActualCoords(jointStress, jointShear, true);
         let actualY = getActualCoords(jointStress, jointShear, false);
@@ -549,12 +572,36 @@ function updateStrainCircle() {
         strainCenter = 0.5 * (strain1 + (2 * (strain2 + strain3) - strain1) / 3);
         shear1 = -2 / Math.sqrt(3) * (strain3 - strain2);
     }
-    strainRadius = Math.sqrt(shear1 ** 2 + (strain1 - strainCenter) ** 2);
+    strainRadius = Math.sqrt((0.5 * shear1) ** 2 + (strain1 - strainCenter) ** 2);
+
+    baseStrainAngle = Math.atan(0.5 * shear1 / (strain1 - strainCenter));
+    if (strainCenter > strain1) baseStrainAngle += Math.PI;
+    if (baseStrainAngle > Math.PI) baseStrainAngle = -(2 * Math.PI - baseStrainAngle);
 
     //draw things
+    plotPoint(strain1, 0.5 * shear1, strain1Point);
 
+    if (rosetteSetup === "rectangular") {
+        shear2 = drawStrainPoint(strain2, shear2, -0.5 * Math.PI, strain2Point);
+        shear3 = drawStrainPoint(strain3, shear3, -Math.PI, strain3Point);
+    } else {
+        shear2 = drawStrainPoint(strain2, shear2, 2 / 3 * Math.PI, strain2Point);
+        shear3 = drawStrainPoint(strain3, shear3, -2 / 3 * Math.PI, strain3Point);
+        console.log(rosetteSetup);
+    }
+    drawStrainConnectors();
+    drawYAxis();
+    drawRosette();
+    drawExtraGauge();
 
+}
 
+function drawStrainPoint(strain, shearStrain, angle, pointID) {
+    strain = strainRadius * Math.cos(baseStrainAngle - angle) + strainCenter;
+    shearStrain = 2 * strainRadius * Math.sin(baseStrainAngle - angle);
+
+    plotPoint(strain, 0.5 * shearStrain, pointID);
+    return shearStrain;
 }
 
 function updateStaticText() {
@@ -562,10 +609,14 @@ function updateStaticText() {
         title.textContent = "Mohr's Stress Circle";
         jointButton.textContent = "Disable Joint";
         strainButton.textContent = "Toggle to Strain";
+        xAxisLabel.textContent = "+σ";
+        yAxisLabel.textContent = "+𝜏";
     } else {
         title.textContent = "Mohr's Strain Circle";
         jointButton.textContent = "Disable Extra Gauge";
         strainButton.textContent = "Toggle to Stress";
+        xAxisLabel.textContent = "+ε x 10⁻⁶";
+        yAxisLabel.textContent = "+½𝜙x 10⁻⁶"
     }
 
 }
@@ -574,6 +625,142 @@ function toggleRosette() {
     if (rosetteSetup === "rectangular") rosetteSetup = "delta";
     else if (rosetteSetup === "delta") rosetteSetup = "star";
     else if (rosetteSetup === "star") rosetteSetup = "rectangular";
+    onUpdate();
+}
+
+function drawStrainConnectors() {
+    let d = ``;
+    const strains = [strain1, strain2, strain3];
+    const shearStrains = [shear1, shear2, shear3];
+    const vLineHeight = 90;
+
+    for (let i = 0; i < 3; i++) {
+        d += `
+            M 0, 0
+            L ${getActualCoords(strains[i], 0.5 * shearStrains[i], true)}, ${getActualCoords(strains[i], 0.5 * shearStrains[i], false)}
+        `;
+        d += `
+            M ${getActualCoords(strains[i], 0.5 * shearStrains[i], true)}, ${-vLineHeight}
+            L ${getActualCoords(strains[i], 0.5 * shearStrains[i], true)}, ${vLineHeight}
+        `;
+    }
+    console.log(d);
+    strainConnectors.setAttribute("d", d);
+}
+
+function drawRosette() {
+    const gaugeLength = 45;
+    let d = "", d1 = "", d2 = "", d3 = "";
+    if (rosetteSetup === "rectangular") {
+        d += `
+            M -220, -120
+            v ${-gaugeLength}
+            m 0, ${gaugeLength}
+            h ${gaugeLength}
+            m ${-gaugeLength}, 0
+            l ${gaugeLength - 5}, ${-gaugeLength + 5}
+        `;
+
+        d1 += `
+            M -220, -120
+            m ${0.3 * gaugeLength}, 0
+            h ${0.4 * gaugeLength}
+        `;
+
+        d2 += `
+            M -220 -120
+            m ${0.3 * gaugeLength}, ${-0.3 * gaugeLength}
+            l ${0.32 * gaugeLength}, ${-0.32 * gaugeLength}
+        `;
+
+        d3 += `
+            M -220 -120
+            m 0, ${-0.3 * gaugeLength}
+            v ${-0.4 * gaugeLength}
+        `;
+    } else if (rosetteSetup === "delta") {
+        d += `
+            M -220, -120
+            h ${gaugeLength}
+            l ${-0.5 * gaugeLength}, ${-Math.sqrt(3) / 2 * gaugeLength}
+            z
+        `;
+
+        d1 += `
+            M -220, -120
+            m ${0.3 * gaugeLength}, 0
+            h ${0.4 * gaugeLength}
+        `;
+
+        d2 += `
+            M -220, -120
+            m ${0.85 * gaugeLength}, ${-0.3 * Math.sqrt(3) / 2 * gaugeLength}
+            l ${-0.2 * gaugeLength}, ${-0.4 * Math.sqrt(3) / 2 * gaugeLength}
+        `;
+
+        d3 += `
+            M -220, -120
+            m ${0.15 * gaugeLength}, ${-0.3 * Math.sqrt(3) / 2 * gaugeLength}
+            l ${0.2 * gaugeLength}, ${-0.4 * Math.sqrt(3) / 2 * gaugeLength}
+        `;
+    } else {
+        d += `
+            M -195, -130
+            v ${-gaugeLength}
+            M -195, -130
+            l ${Math.sqrt(3) / 2 * gaugeLength}, ${0.5 * gaugeLength}
+            M -195, -130
+            l ${-Math.sqrt(3) / 2 * gaugeLength}, ${0.5 * gaugeLength}
+        `;
+
+        d1 += `
+            M -195, -130
+            m 0, ${-0.3 * gaugeLength}
+            v ${-0.4 * gaugeLength}
+        `;
+
+        d2 += `
+            M -195, -130
+            m ${-0.3 * Math.sqrt(3) / 2 * gaugeLength}, ${0.15 * gaugeLength}
+            l ${-0.4 * Math.sqrt(3) / 2 * gaugeLength}, ${0.2 * gaugeLength} 
+        `;
+
+        d3 += `
+            M -195, -130
+            m ${0.3 * Math.sqrt(3) / 2 * gaugeLength}, ${0.15 * gaugeLength}
+            l ${0.4 * Math.sqrt(3) / 2 * gaugeLength}, ${0.2 * gaugeLength} 
+        `;
+    }
+
+    strainGaugeRosette.setAttribute("d", d);
+    rosetteGauge1.setAttribute("d", d1);
+    rosetteGauge2.setAttribute("d", d2);
+    rosetteGauge3.setAttribute("d", d3);
+}
+
+function drawExtraGauge() {
+    gaugeAngle = Number(input4.value) * Math.PI / 180;
+
+    let effectiveYAxis = yAxisValue;
+    if (Math.abs(yAxisValue) >= 140) effectiveYAxis = Math.sign(yAxisValue) * 180;
+
+    gaugeStrain = strainRadius * Math.cos(baseStrainAngle - 2 * gaugeAngle) + strainCenter;
+    gaugeShear = 2 * strainRadius * Math.sin(baseStrainAngle - 2 * gaugeAngle);
+
+    let actualX = getActualCoords(gaugeStrain, 0.5 * gaugeShear, true);
+    let actualY = getActualCoords(gaugeStrain, 0.5 * gaugeShear, false);
+
+    strain4Point.setAttribute("cx", actualX);
+    strain4Point.setAttribute("cy", actualY);
+
+    gaugeConnector.setAttribute("d", `
+        M 0, 0
+        L ${actualX},${actualY}
+        L ${actualX}, 0
+        M ${actualX},${actualY}
+        L ${effectiveYAxis}, ${actualY}
+    `);
+
 }
 
 
@@ -611,6 +798,5 @@ strainButton.addEventListener("click", function () {
 
 rosetteButton.addEventListener("click", function () {
     toggleRosette();
-    console.log(rosetteSetup);
 });
 
