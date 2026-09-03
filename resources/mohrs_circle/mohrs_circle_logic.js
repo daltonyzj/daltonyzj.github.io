@@ -91,8 +91,32 @@ const strainGaugeRosette = document.getElementById("strain-gauge-rosette");
 const rosetteGauge1 = document.getElementById("sgauge-1");
 const rosetteGauge2 = document.getElementById("sgauge-2");
 const rosetteGauge3 = document.getElementById("sgauge-3");
+const rosetteGauge4 = document.getElementById("sgauge-4");
 const gaugeConnector = document.getElementById("gauge-connector");
+const constructionLines = document.getElementById("construction-lines");
 
+const strain1Label = document.getElementById("strain1-label");
+const strain2Label = document.getElementById("strain2-label");
+const strain3Label = document.getElementById("strain3-label");
+const strain4Label = document.getElementById("strain4-label");
+const cStrainLabel = document.getElementById("c-strain-label");
+const pStrainLabel = document.getElementById("p-strain-label");
+const qStrainLabel = document.getElementById("q-strain-label");
+const rosette1Label = document.getElementById("rosette-1-label");
+const rosette2Label = document.getElementById("rosette-2-label");
+const rosette3Label = document.getElementById("rosette-3-label");
+const rosette4Label = document.getElementById("rosette-4-label");
+
+
+const pStrainValue = document.getElementById("P-strain-value");
+const qStrainValue = document.getElementById("Q-strain-value");
+const pStrainAngle = document.getElementById("P-strain-angle");
+const qStrainAngle = document.getElementById("Q-strain-angle");
+const gaugeStrainValue = document.getElementById("strain4-value");
+const gaugeShearValue = document.getElementById("shear4-value");
+
+const gaugeSliderBox = document.getElementById("gauge-slider-box");
+const gaugeMenu = document.getElementById("gauge-menu");
 
 
 
@@ -120,6 +144,8 @@ let strainCenter, shear1, strainRadius, shear2, shear3;
 let baseStrainAngle;
 let strainScalingFactor;
 let gaugeStrain, gaugeShear;
+
+let drawGauge = true;
 
 
 //functions
@@ -574,6 +600,9 @@ function updateStrainCircle() {
     }
     strainRadius = Math.sqrt((0.5 * shear1) ** 2 + (strain1 - strainCenter) ** 2);
 
+    strainP = strainCenter + strainRadius;
+    strainQ = strainCenter - strainRadius;
+
     baseStrainAngle = Math.atan(0.5 * shear1 / (strain1 - strainCenter));
     if (strainCenter > strain1) baseStrainAngle += Math.PI;
     if (baseStrainAngle > Math.PI) baseStrainAngle = -(2 * Math.PI - baseStrainAngle);
@@ -593,6 +622,27 @@ function updateStrainCircle() {
     drawYAxis();
     drawRosette();
     drawExtraGauge();
+    drawConstructionLines();
+
+    //label things
+    labelPoint(strain1, 0.5 * shear1, `1(${strain1}, ${0.5 * shear1.toFixed(2)})`, strain1Label, false);
+    labelPoint(strain2, 0.5 * shear2, `2(${strain2}, ${0.5 * shear2.toFixed(2)})`, strain2Label, false);
+    labelPoint(strain3, 0.5 * shear3, `3(${strain3}, ${0.5 * shear3.toFixed(2)})`, strain3Label, false);
+    labelPoint(0, -10, `(${strainCenter.toFixed(2)},0)`, cStrainLabel, true);
+    labelPoint(80, -7, `${strainP.toFixed(2)}`, pStrainLabel, true);
+    labelPoint(-120, -7, `${strainQ.toFixed(2)}`, qStrainLabel, true);
+    labelPoint(gaugeStrain, 0.5 * gaugeShear, `(${gaugeStrain.toFixed(2)}, ${0.5 * gaugeShear.toFixed(2)})`, strain4Label, false);
+
+    pStrainValue.textContent = `${strainP.toFixed(2)}`;
+    qStrainValue.textContent = `${strainQ.toFixed(2)}`;
+    pStrainAngle.textContent = `${(0.5 * baseStrainAngle * 180 / Math.PI).toFixed(2)}`
+    qStrainAngle.textContent = `${-(0.5 * Math.sign(baseStrainAngle) * (180 - Math.abs(baseStrainAngle * 180 / Math.PI))).toFixed(2)}`
+    gaugeStrainValue.textContent = `${gaugeStrain.toFixed(2)}`;
+    gaugeShearValue.textContent = `${gaugeShear.toFixed(2)}`
+
+
+    if (drawGauge) jointButton.textContent = "Disable Extra Gauge";
+    else jointButton.textContent = "Enable Extra Gauge";
 
 }
 
@@ -650,59 +700,95 @@ function drawStrainConnectors() {
 
 function drawRosette() {
     const gaugeLength = 45;
-    let d = "", d1 = "", d2 = "", d3 = "";
+    const vertex1 = { x: -200, y: -120 };
+    let d = "", d1 = "", d2 = "", d3 = "", d4 = "";
     if (rosetteSetup === "rectangular") {
         d += `
-            M -220, -120
+            M ${vertex1.x}, ${vertex1.y}
             v ${-gaugeLength}
             m 0, ${gaugeLength}
             h ${gaugeLength}
             m ${-gaugeLength}, 0
-            l ${gaugeLength - 5}, ${-gaugeLength + 5}
+            l ${gaugeLength / Math.sqrt(2)}, ${-gaugeLength / Math.sqrt(2)}
         `;
 
         d1 += `
-            M -220, -120
+            M ${vertex1.x}, ${vertex1.y}
             m ${0.3 * gaugeLength}, 0
             h ${0.4 * gaugeLength}
         `;
 
         d2 += `
-            M -220 -120
-            m ${0.3 * gaugeLength}, ${-0.3 * gaugeLength}
-            l ${0.32 * gaugeLength}, ${-0.32 * gaugeLength}
+            M ${vertex1.x} ${vertex1.y}
+            m ${0.3 / Math.sqrt(2) * gaugeLength}, ${-0.3 / Math.sqrt(2) * gaugeLength}
+            l ${0.4 / Math.sqrt(2) * gaugeLength}, ${-0.4 / Math.sqrt(2) * gaugeLength}
         `;
 
         d3 += `
-            M -220 -120
+            M ${vertex1.x} ${vertex1.y}
             m 0, ${-0.3 * gaugeLength}
             v ${-0.4 * gaugeLength}
         `;
+
+        if (drawGauge) {
+            d += `
+            M ${vertex1.x}, ${vertex1.y}
+            l ${gaugeLength * Math.cos(-angle4 * Math.PI / 180)}, ${gaugeLength * Math.sin(angle4 * Math.PI / 180)}
+        `;
+
+            d4 += `
+            M ${vertex1.x}, ${vertex1.y}
+            m ${0.3 * gaugeLength * Math.cos(-angle4 * Math.PI / 180)}, ${0.3 * gaugeLength * Math.sin(angle4 * Math.PI / 180)}
+            l ${0.4 * gaugeLength * Math.cos(-angle4 * Math.PI / 180)}, ${0.4 * gaugeLength * Math.sin(angle4 * Math.PI / 180)}
+        `;
+        }
+
+        labelPoint(vertex1.x + gaugeLength, -vertex1.y + 3, input1.value, rosette1Label, true);
+        labelPoint(vertex1.x + gaugeLength / Math.sqrt(2) - 5, -(vertex1.y - gaugeLength / Math.sqrt(2) - 7), input2.value, rosette2Label, true);
+        labelPoint(vertex1.x - 10, -(vertex1.y - gaugeLength - 8), input3.value, rosette3Label, true);
     } else if (rosetteSetup === "delta") {
         d += `
-            M -220, -120
+            M ${vertex1.x}, ${vertex1.y}
             h ${gaugeLength}
             l ${-0.5 * gaugeLength}, ${-Math.sqrt(3) / 2 * gaugeLength}
             z
         `;
 
         d1 += `
-            M -220, -120
+            M ${vertex1.x}, ${vertex1.y}
             m ${0.3 * gaugeLength}, 0
             h ${0.4 * gaugeLength}
         `;
 
         d2 += `
-            M -220, -120
+            M ${vertex1.x}, ${vertex1.y}
             m ${0.85 * gaugeLength}, ${-0.3 * Math.sqrt(3) / 2 * gaugeLength}
             l ${-0.2 * gaugeLength}, ${-0.4 * Math.sqrt(3) / 2 * gaugeLength}
         `;
 
         d3 += `
-            M -220, -120
+            M ${vertex1.x}, ${vertex1.y}
             m ${0.15 * gaugeLength}, ${-0.3 * Math.sqrt(3) / 2 * gaugeLength}
             l ${0.2 * gaugeLength}, ${-0.4 * Math.sqrt(3) / 2 * gaugeLength}
         `;
+
+        if (drawGauge) {
+            d += `
+            M ${vertex1.x}, ${vertex1.y}
+            l ${gaugeLength * Math.cos(-angle4 * Math.PI / 180)}, ${gaugeLength * Math.sin(angle4 * Math.PI / 180)}
+        `;
+
+            d4 += `
+            M ${vertex1.x}, ${vertex1.y}
+            m ${0.3 * gaugeLength * Math.cos(-angle4 * Math.PI / 180)}, ${0.3 * gaugeLength * Math.sin(angle4 * Math.PI / 180)}
+            l ${0.4 * gaugeLength * Math.cos(-angle4 * Math.PI / 180)}, ${0.4 * gaugeLength * Math.sin(angle4 * Math.PI / 180)}
+        `;
+        }
+
+        labelPoint(vertex1.x + 0.25 * gaugeLength, -vertex1.y - 7, input1.value, rosette1Label, true);
+        labelPoint(vertex1.x + 0.7 * gaugeLength, -(vertex1.y - 0.6 * gaugeLength), input2.value, rosette2Label, true);
+        labelPoint(vertex1.x - 0.35 * gaugeLength, -(vertex1.y - 0.6 * gaugeLength), input3.value, rosette3Label, true);
+
     } else {
         d += `
             M -195, -130
@@ -730,37 +816,88 @@ function drawRosette() {
             m ${0.3 * Math.sqrt(3) / 2 * gaugeLength}, ${0.15 * gaugeLength}
             l ${0.4 * Math.sqrt(3) / 2 * gaugeLength}, ${0.2 * gaugeLength} 
         `;
+
+        if (drawGauge) {
+            d += `
+            M -195, -130
+            l ${gaugeLength * Math.cos(-0.5 * Math.PI + angle4 * Math.PI / 180)}, ${gaugeLength * Math.sin(-0.5 * Math.PI - angle4 * Math.PI / 180)}
+        `;
+
+            d4 += `
+            M -195, -130
+            m ${0.3 * gaugeLength * Math.cos(-0.5 * Math.PI + angle4 * Math.PI / 180)}, ${0.3 * gaugeLength * Math.sin(-0.5 * Math.PI - angle4 * Math.PI / 180)}
+            l ${0.4 * gaugeLength * Math.cos(-0.5 * Math.PI + angle4 * Math.PI / 180)}, ${0.4 * gaugeLength * Math.sin(-0.5 * Math.PI - angle4 * Math.PI / 180)}
+        `;
+        }
+
+        labelPoint(-205, -(-130 - gaugeLength - 8), input1.value, rosette1Label, true);
+        labelPoint(-195 - Math.sqrt(3) / 2 * gaugeLength, -(-130 + 0.5 * gaugeLength), input2.value, rosette2Label, true);
+        labelPoint(-195 + Math.sqrt(3) / 2 * gaugeLength, -(-130 + 0.5 * gaugeLength), input3.value, rosette3Label, true);
     }
 
     strainGaugeRosette.setAttribute("d", d);
     rosetteGauge1.setAttribute("d", d1);
     rosetteGauge2.setAttribute("d", d2);
     rosetteGauge3.setAttribute("d", d3);
+    rosetteGauge4.setAttribute("d", d4);
+
 }
 
 function drawExtraGauge() {
-    gaugeAngle = Number(input4.value) * Math.PI / 180;
+    if (drawGauge) {
+        strain4Point.classList.remove("hide");
+        gaugeConnector.classList.remove("hide");
+        strain4Label.classList.remove("hide");
+        gaugeSliderBox.classList.remove("hide");
+        gaugeMenu.classList.remove("hide");
 
-    let effectiveYAxis = yAxisValue;
-    if (Math.abs(yAxisValue) >= 140) effectiveYAxis = Math.sign(yAxisValue) * 180;
+        gaugeAngle = Number(input4.value) * Math.PI / 180;
 
-    gaugeStrain = strainRadius * Math.cos(baseStrainAngle - 2 * gaugeAngle) + strainCenter;
-    gaugeShear = 2 * strainRadius * Math.sin(baseStrainAngle - 2 * gaugeAngle);
+        let effectiveYAxis = yAxisValue;
+        if (Math.abs(yAxisValue) >= 140) effectiveYAxis = Math.sign(yAxisValue) * 180;
 
-    let actualX = getActualCoords(gaugeStrain, 0.5 * gaugeShear, true);
-    let actualY = getActualCoords(gaugeStrain, 0.5 * gaugeShear, false);
+        gaugeStrain = strainRadius * Math.cos(baseStrainAngle - 2 * gaugeAngle) + strainCenter;
+        gaugeShear = 2 * strainRadius * Math.sin(baseStrainAngle - 2 * gaugeAngle);
 
-    strain4Point.setAttribute("cx", actualX);
-    strain4Point.setAttribute("cy", actualY);
+        let actualX = getActualCoords(gaugeStrain, 0.5 * gaugeShear, true);
+        let actualY = getActualCoords(gaugeStrain, 0.5 * gaugeShear, false);
 
-    gaugeConnector.setAttribute("d", `
+        strain4Point.setAttribute("cx", actualX);
+        strain4Point.setAttribute("cy", actualY);
+
+        gaugeConnector.setAttribute("d", `
         M 0, 0
         L ${actualX},${actualY}
-        L ${actualX}, 0
-        M ${actualX},${actualY}
-        L ${effectiveYAxis}, ${actualY}
-    `);
+        `);
+    } else {
+        strain4Point.classList.add("hide");
+        console.log("ooo");
+        gaugeConnector.classList.add("hide");
+        strain4Label.classList.add("hide");
+        gaugeSliderBox.classList.add("hide");
+        gaugeMenu.classList.add("hide");
+    }
+}
 
+function drawConstructionLines() {
+    let d = "";
+    if (rosetteSetup === "rectangular") {
+        d += `
+            M ${getActualCoords(strain3, -0.5 * shear3, true)}, ${getActualCoords(strain3, -0.5 * shear3, false)}
+            L ${getActualCoords(strain1, 0.5 * shear1, true)}, ${getActualCoords(strain1, 0.5 * shear1, false)}
+            M ${getActualCoords(strain3, -0.5 * shear3, true)}, ${getActualCoords(strain3, -0.5 * shear3, false)}
+            L ${getActualCoords(strain2, 0.5 * shear2, true)}, ${getActualCoords(strain2, 0.5 * shear2, false)}
+        `;
+    } else {
+        d += `
+            M ${getActualCoords(strain1, -0.5 * shear1, true)}, ${getActualCoords(strain1, -0.5 * shear1, false)}
+            L ${getActualCoords(strain2, 0.5 * shear2, true)}, ${getActualCoords(strain2, 0.5 * shear2, false)}
+            M ${getActualCoords(strain1, -0.5 * shear1, true)}, ${getActualCoords(strain1, -0.5 * shear1, false)}
+            L ${getActualCoords(strain3, 0.5 * shear3, true)}, ${getActualCoords(strain3, 0.5 * shear3, false)}
+        `;
+    }
+
+    constructionLines.setAttribute("d", d);
 }
 
 
@@ -787,6 +924,7 @@ linkSliderInput(slider4, input4);
 
 jointButton.addEventListener("click", function () {
     drawJoint = !drawJoint;
+    drawGauge = !drawGauge;
     onUpdate();
 });
 

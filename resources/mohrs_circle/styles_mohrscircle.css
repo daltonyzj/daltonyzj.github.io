@@ -145,7 +145,7 @@ svg {
     fill: orange;
 }
 
-#J-stress-label, #J-shear-label{
+#J-stress-label, #J-shear-label, #strain4-label{
     fill: #CC5500;
 }
 
@@ -169,16 +169,16 @@ svg text {
     font-size:10px
 }
 
-#V-label {
+#V-label, #strain3-label {
     fill: green;
 }
 
-#H-label {
+#H-label, #strain1-label {
     fill: red;
 }
 
 #P-label,
-#Q-label {
+#Q-label, #strain2-label, #p-strain-label, #q-strain-label {
     fill: var(--blue);
 }
 
@@ -242,6 +242,10 @@ span {
     stroke:green;
 }
 
+#sgauge-4{
+    stroke:orange;
+}
+
 #red-label-pls, #strain-1{
     color:red;
 }
@@ -252,4 +256,20 @@ span {
 
 #green-label-pls, #strain-3{
     color:green;
+}
+
+#gauge-menu{
+    font-size: 0.82em;
+}
+#gauge-menu > span{
+    font-size: 1em;
+}
+
+#construction-lines {
+    stroke: var(--black);
+    stroke-width: 1px;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 2 2;
 }

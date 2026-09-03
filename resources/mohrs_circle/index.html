@@ -72,13 +72,13 @@
                 </div>
                 <input class="slider" id="strain-3-slider" type="range" min="-1000" max="1000" value=600>
             </div>
-            <div class="slider-parameter">
+            <div id = "gauge-slider-box" class="slider-parameter">
                 <div class="number-display">
                     <label>$\theta_4 = $ </label>
-                    <input class="number" id="gauge-4" value="60">
+                    <input class="number" id="gauge-4" value="30">
                     <label>$^\circ $</label>
                 </div>
-                <input class="slider" id="gauge-4-slider" type="range" min="-180" max="180" value=60>
+                <input class="slider" id="gauge-4-slider" type="range" min="-180" max="180" value=30>
             </div>
         </div>
 
@@ -99,10 +99,10 @@
 
         <div class="number-output strain">
             <p>
-                $\varepsilon_p = $ <span id="P-value"></span> $N/mm^2,\;\theta_P = $<span id="P-angle"></span>$^\circ$<br>
-                $\varepsilon_q = $<span id="Q-value"></span>$N/mm^2,\;\theta_Q = $<span id="Q-angle"></span>$^\circ$<br>
+                $\varepsilon_p = $ <span id="P-strain-value"></span> $\times 10^{-6} \text{ strains},\;\theta_P = $<span id="P-strain-angle"></span>$^\circ$<br>
+                $\varepsilon_q = $<span id="Q-strain-value"></span>$\times 10^{-6} \text{ strains},\;\theta_Q = $<span id="Q-strain-angle"></span>$^\circ$<br>
                 <br>
-                <span id="joint-menu">$\varepsilon_4 = $<span id="J-stress-value"></span>$\times 10^{-6}\text{ strains},\;\phi_4 = $<span id="J-shear-value"></span>$\times 10^{-6}\text{ strains}$</span>
+                <span id="gauge-menu">$\varepsilon_4 = $<span id="strain4-value"></span>$\times 10^{-6}\text{ strains},\;\phi_4 = $<span id="shear4-value"></span>$\times 10^{-6}\text{ strains}$</span>
             </p>
         </div>
         <br>
@@ -110,7 +110,6 @@
             <button id="joint-toggle-btn">Disable Joint</button>
             <button id="strain-toggle-btn">Toggle to Strain</button>
             <button id="rosette-toggle-btn" class = "strain">Toggle Strain Gauge Rosette</button>
-            <button id="transfer-btn" class = "strain">Transfer Strain State</button>
         </div>
     </div>
     <div class="svg-container">
@@ -123,14 +122,15 @@
             <path id="plane-connector" class="black-svg dashed stress"></path>
             <path d="M 0, -80 L 0,80" class="black-svg dashed stress"></path>
             <path class="joint dashed stress" id="joint-connector"></path>
-            <circle cx="0" cy="0" r="3" fill="black"></circle>
 
             <path class ="black-svg dashed strain" id = "strain-connectors"></path>
             <path class = "joint dashed strain" id = "gauge-connector"></path>
             <path class = "black-svg strain" id = "strain-gauge-rosette"></path>
+            <path class = "strain" id = "construction-lines"></path>
             <path class = "gauge strain" id = "sgauge-1"></path>
             <path class = "gauge strain" id = "sgauge-2"></path>
             <path class = "gauge strain" id = "sgauge-3"></path>
+            <path class = "gauge strain" id = "sgauge-4"></path>
 
             <circle r="4" id="V-point" class = "stress"></circle>
             <circle r="4" id="H-point" class = "stress"></circle>
@@ -171,8 +171,24 @@
             <text class="point-label stress" id="element-t-label" />
             <text class="point-label stress" id="element-j-label" />
 
+            <text class = "point-label strain" id = "strain1-label"></text>
+            <text class = "point-label strain" id = "strain2-label"></text>
+            <text class = "point-label strain" id = "strain3-label"></text>
+            <text class = "point-label strain" id = "strain4-label"></text>
+            <text class = "point-label strain" id = "c-strain-label"></text>
+            <text class = "point-label strain" id = "p-strain-label"></text>
+            <text class = "point-label strain" id = "q-strain-label"></text>
+            <text class = "point-label strain" id = "rosette-1-label"></text>
+            <text class = "point-label strain" id = "rosette-2-label"></text>
+            <text class = "point-label strain" id = "rosette-3-label"></text>
+            <text class = "point-label strain" id = "rosette-4-label"></text>
+
             <text class="axis-label" id="x-axis-label" x="140" y="-5">+σ</text>
             <text class="axis-label" id="y-axis-label">+𝜏</text>
+
+
+
+            <circle cx="0" cy="0" r="3" fill="black"></circle>
 
         </svg>
     </div>
