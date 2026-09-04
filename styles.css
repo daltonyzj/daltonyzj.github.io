@@ -606,7 +606,7 @@ tr:first-child>td:first-child {
 }
 
 #interactive-list, li > a{
-    font-size: 1.2em;
+    font-size: clamp(0.15rem, 4vw, 1.2rem);
     color:var(--black);
 }
 
@@ -617,4 +617,8 @@ tr:first-child>td:first-child {
 #interactive-list > li:hover{
     transform: translateX(5px);
     transition: 0.2s;
+}
+
+#disclaimer{
+    font-size: clamp(0.07rem, 2.5vw, 1rem);
 }
