@@ -18,18 +18,22 @@
         </nav>
     </div>
     <header id="other-header">
-        <h1 class = fade-in>resources</h1>
-        <h3 class = fade-in>notes, solvers and interactive things</h3>
+        <h1 class=fade-in>resources</h1>
+        <h3 class=fade-in>notes, solvers and interactive things</h3>
     </header>
-    <section id=white class = "bottom-border">
+    <section id=white class="bottom-border">
         <h2>interactives</h2>
         <br>
-        work in progress
+        <ul id=interactive-list>
+            <li> <a href="mohrs_circle/" target="_blank" rel="noopener noreferrer">⇒ mohrs stress & strain circle
+                    solver</a></li>
+        </ul>
+        **most solvers work better on desktop instead of mobile
     </section>
     <section id=white>
         <h2>notes</h2>
         <br>
-        <div class = "filters">
+        <div class="filters">
             <div>
                 <label for="year">Year: </label>
                 <select id="year">
@@ -67,10 +71,10 @@
             <div>
                 <label for="subject">Subject: </label>
                 <input id="subject">
-            </div> 
+            </div>
         </div>
         <br>
-        <div class = "table-container">
+        <div class="table-container">
             <table>
                 <thead>
                 </thead>
@@ -79,9 +83,10 @@
             </table>
         </div>
     </section>
-    <footer class = black-footer>
+    <footer class=black-footer>
         <p>© Dalton Yeo 2026</p>
     </footer>
 </body>
 <script src="/notes.js"></script>
+
 </html>

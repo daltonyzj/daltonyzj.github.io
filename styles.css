@@ -604,3 +604,17 @@ td>a:hover {
 tr:first-child>td:first-child {
     text-align: left;
 }
+
+#interactive-list, li > a{
+    font-size: 1.2em;
+    color:var(--black);
+}
+
+#interactive-list > li{
+    transition: 0.2s;
+}
+
+#interactive-list > li:hover{
+    transform: translateX(5px);
+    transition: 0.2s;
+}
