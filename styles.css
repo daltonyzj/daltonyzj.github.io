@@ -174,11 +174,24 @@ footer {
     padding: 1.2em;
     align-content: center;
     text-align: center;
-    font-size: 0.8em;
+}
+
+footer > ul{
+    display: flex;
+    justify-content: center;
+    gap: 1.5em;
+}
+
+footer > ul > li, footer > ul > li > a{
+    font-size: 12px;
 }
 
 .black-footer {
     background-color: var(--black);
+    color: var(--white);
+}
+
+.black-footer a{
     color: var(--white);
 }
 
@@ -223,6 +236,9 @@ li {
 
 li>a {
     text-decoration: none;
+}
+
+.interactives{
     font-size: 1.5em;
 }
 
